@@ -1,0 +1,7 @@
+DB Information
+
+name:lawSystem
+password:Leno_19721234f
+-----------------------------------
+Project Configuration (URL):"https://ejfjcbjlcizcuoewsrzb.supabase.co"
+Project API keys:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqZmpjYmpsY2l6Y3VvZXdzcnpiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzUzMzQ4MjQsImV4cCI6MTk5MDkxMDgyNH0.TqToVpJM84EWFtMLtEeYEsn76akz87Jbm4oeoX79aao"

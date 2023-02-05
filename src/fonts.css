@@ -1,0 +1,47 @@
+@font-face {
+  src: url("../public/fonts/next.ttf") format("truetype"); ;
+  font-family: "NX";
+   font-style: normal;
+   font-weight: bold;
+  }
+  @font-face {
+    src: url("../public/fonts/Cairo-Bold.ttf") format("truetype"); ;
+    font-family: "CB";
+     font-style: normal;
+     font-weight: bold;
+    }
+  
+ 
+
+
+  @font-face {
+    src: url("../public/fonts/Cairo-Regular.ttf") format("truetype"); ;
+    font-family: "CR";
+     font-style: normal;
+     font-weight: normal;
+    }
+
+
+
+      
+@font-face {
+  src: url("../public/fonts/Tajawal-Bold.ttf") format("truetype"); ;
+  font-family: "TB";
+   font-style: normal;
+   font-weight: bold;
+  }
+  @font-face {
+    src: url("../public/fonts/Tajawal-Regular.ttf") format("truetype"); ;
+    font-family: "TR";
+     font-style: normal;
+     font-weight: normal;
+    }
+
+
+    @font-face {
+      src: url("../public/fonts/aFont.ttf") format("truetype"); ;
+      font-family: "AF";
+       font-style: normal;
+       font-weight: normal;
+      }
+  
