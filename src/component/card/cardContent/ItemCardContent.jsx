@@ -14,7 +14,9 @@ cId,cName,
   create_at="10/10/2025",
   natationalty="سعودي",
   expanded,
+  hasComment,
   handleExpandClick,
+  theme 
 }) {
   return (
     <CardContent
@@ -27,7 +29,7 @@ cId,cName,
       }}
     >
      <MobileAndEmailAndNationalty   Mobile={Mobile} email={email} create_at={create_at} natationalty={natationalty}  />
-     <IdImageWkalaImage    cId={cId} cName={cName} />
+     <IdImageWkalaImage    cId={cId} cName={cName} hasComment={hasComment}    theme={theme}/>
      <WakelInfo   Wid={Wid} Wname={Wname}  />
     </CardContent>
   );

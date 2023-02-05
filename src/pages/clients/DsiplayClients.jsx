@@ -5,20 +5,6 @@ import { Box } from '@mui/material'
 import supabase from '../../logic/database/supabase';
 function DsiplayClients({client}) {
   const theme=useTheme()
-//   const [client,setClient]=useState([])
-
-// const getData=async()=>{
-//   const { data } = await supabase.from("clients").select('*').order('row_id', { ascending: true })
-//   setClient(data);
-//   console.log(client)
-// }
-
-// useEffect(() => {
-//   getData()
-  
-// }, []);
-
-
   return (
     <>
       <Box
@@ -31,7 +17,6 @@ function DsiplayClients({client}) {
           // backgroundColor:"red"
         }}
       >
-           {/* <ItemCard client={client} counter={10} theme={theme} /> */}
         {client.map((client, idx) => {
           return (
             <React.Fragment key={client.row_id}>

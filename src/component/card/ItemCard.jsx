@@ -49,7 +49,8 @@ export default function ItemCard({
         create_at={FORMATDATE(client.create_at)}
         cId={client.id}
         cName={client.name}
-         
+        hasComment={client.has_comment}
+        theme={theme}
       />
       <ItemCardAction   Qdya={client.Qdya} jalsat={client.jalsat} hkm={client.hkm}  tnfed={client.tnfed} theme={theme} />
       <ItemCardTermsAndDetail

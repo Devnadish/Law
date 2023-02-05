@@ -7,8 +7,9 @@ import WriteComment from "../../comments/WriteComment"
 import CommentPage from "../../comments/CommentPage"
 import { toast } from "react-toastify";
 import supabase from '../../../logic/database/supabase';
+import {FaCommentSlash,FaComment} from "react-icons/fa"
 
-export function IdImageWkalaImage({ cId,cName}) {
+export function IdImageWkalaImage({ cId,cName,hasComment,   theme}) {
   const [open,setOpen]=useState(false)
 
   return (
@@ -22,10 +23,18 @@ export function IdImageWkalaImage({ cId,cName}) {
           width: "100%",
         }}
       >
-        <Button variant="contained" onClick={() => setOpen(true)}>
+        <Button
+          variant="contained"
+          onClick={() => setOpen(true)}
+          // endIcon=
+          sx={{display:"flex",justifyContent:"space-between" ,alignItems:"center",  backgroundColor:   theme.soft}}
+          fullWidth
+        
+        >
           <Typography fontFamily={"NX"} lineHeight={"1"} fontSize={".8rem"}>
             ملاحظات
           </Typography>
+          {hasComment === "0" ? <FaCommentSlash color={theme.yellowColor} /> : <FaComment color={theme.barndbaColor} />}
         </Button>
         <Box
           sx={{
