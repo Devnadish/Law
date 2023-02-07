@@ -26,9 +26,14 @@ const Container = styled.div`
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [commentCount, setCommentCount] = useState(0);
-
+  const [loading, setLoading] = useState(true);
+  const spinner = document.getElementById("spinner");
+  if (spinner) {
+    setTimeout(() => {
+      spinner.style.display = "none";
+      setLoading(false);
+    }, 100);
+  }
  
 
 
@@ -37,7 +42,8 @@ function App() {
   return (
     <>
       <ErrorBoundary fallback={<FatailError/>}>
-        {/* <ShoppingCartProvider> */}
+      {!loading && (
+       
           <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             <BrowserRouter>
               {/* <UserContext> */}
@@ -50,8 +56,9 @@ function App() {
               {/* </UserContext> */}
             </BrowserRouter>
           </ThemeProvider>
-        {/* </ShoppingCartProvider> */}
-        <ToastContainer
+       )}
+      </ErrorBoundary>
+      <ToastContainer
           position="top-center"
           autoClose={5000}
           hideProgressBar={false}
@@ -64,7 +71,6 @@ function App() {
           theme="colored"
           style={{ fontFamily: "CB" }}
         />
-      </ErrorBoundary>
     </>
   );
 }

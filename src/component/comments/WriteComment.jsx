@@ -10,6 +10,18 @@ import RTL from "../rtl/RTL"
 const WriteComment = ({commentTilte,cId,fechdata}) => {
   const [comment,setComment]=useState("")
     const [loading,setLoading]=useState(false)
+
+ const addNoteCounter=async (clientId)=>{
+      const { data } =  await supabase.from('clients').select().eq("id", cId)
+      let counter=data[0]?.has_comment+1
+      const { data:cmtUpdated,error } = await supabase.from('clients').update({ has_comment : counter }).eq("id", cId).select()
+      console.log(cmtUpdated)
+      
+  }
+  
+
+
+
     const handleSubmit=async (e)=>{
         e.preventDefault()
         if (comment.length===0){
@@ -22,7 +34,9 @@ const WriteComment = ({commentTilte,cId,fechdata}) => {
             console.log(error)
           }else{
             setComment("")
+            
             // toast.success("تمت اضافة الملاحظة")
+            addNoteCounter()
             fechdata()
           }
           setLoading(false)

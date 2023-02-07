@@ -94,5 +94,12 @@ h1 {
   background: #232423 !important;
   font-family: "NX";
 }
+.Toastify__toast--warning {
+  border: 1px solid #3A9EA5 !important;
+  border-radius: 8px !important;
+  background: #dfd004 !important;
+  color: #292929 !important;
+  font-family: "CB";
+}
 
 

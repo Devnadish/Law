@@ -35,10 +35,17 @@ function DiloagShow({
             
           }}
         >
+         <Typography 
          
-            {title}
-         
+         sx={{
+          color:"white" ,
+          fontFamily:"NX",
+          fontSize:".8rem"
+          
+         }}>
 
+            {title}
+         </Typography>
           <Button
             onClick={() => toggle(false)}
             sx={{
