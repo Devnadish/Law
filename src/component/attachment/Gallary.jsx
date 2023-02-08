@@ -7,11 +7,15 @@ import { ShowGallary } from "./ShowGallary";
 
 export function Gallary({ cId }) {
   const [images, setImages] = useState([]);
+
+
   async function getImages(cId) {
     const { data, error } = await supabase
       .from("client_attachment")
       .select()
-      .eq("client", cId);
+      .eq("client", cId).eq("delete","n");
+
+
     if (data !== null) {
       setImages(data);
       console.log({ data });
@@ -25,16 +29,6 @@ export function Gallary({ cId }) {
     getImages(cId);
   }, []);
 
-  async function deleteImage(imageName) {
-    const { error } = await supabase.storage
-      .from("law")
-      .remove([user.id + "/" + imageName]);
-    if (error) {
-      alert(error);
-    } else {
-      getImages();
-    }
-  }
 
   return (
     <>
@@ -42,8 +36,8 @@ export function Gallary({ cId }) {
         <Box
           sx={{ display: "flex", flexDirection: "column", gap: "1rem", p: 1 }}
         >
-          <NewAttachement cId={cId} />
-          <ShowGallary data={images} />
+          <NewAttachement cId={cId} getImages={getImages} />
+          <ShowGallary data={images} getImages={getImages} cId={cId} />
         </Box>
       </RTL>
     </>

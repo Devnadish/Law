@@ -1,42 +1,28 @@
 import React, { useState,useEffect } from "react";
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import supabase from "../../logic/database/supabase";
 import { CDNURL } from "./ClientAttatchment";
 import DiloagShow from "../dailog/DiloagShow"
 import {ImageLoader} from "../loader/Loader"
-import {AiTwotoneDelete} from "react-icons/ai"
-import { borderBottom } from "@mui/system";
+import { ShowSingleImage } from "./ShowSingleImage";
+import { ImageInfo } from "./ImageInfo";
 
-export const ShowGallary = ({ data }) => {
+
+export const ShowGallary = ({ data,getImages,cId }) => {
   const [imageLink, setImageLink] = useState("");
   const [showImage,   setShowImage] = useState(false);
   const [loadImg, setLoadImg] = useState(false);
   const [loadsingleImg, setLoadsingleImg] = useState(true);
 
 
-  const getLink = (xx) => {
-    const { data: xxData, error: xxError } = supabase.storage
-      .from("law")
-      .getPublicUrl(xx, {
-        transform: {
-          width: 200,
-          height: 600,
-        },
-      });
-    // console.log(xxData)
-    return xxData;
-  };
-
   const handleShowImage=async(imageId)=>{
-    
-    // setLoadImg(true)
-    // setImageLink("")
-    setShowImage(true)
+    setImageLink("")
     const {data}=await supabase.from("client_attachment").select().eq("id",imageId)
-    setImageLink(data)
-
-  
+    // const {data}=await supabase.from("client_attachment").select().match({id:imageId,delete:"n"})
+    setImageLink(pre=>data)
+    setShowImage(true)
   }
+
   return (
     <>
       {data.length !== 0 ? (
@@ -52,14 +38,7 @@ export const ShowGallary = ({ data }) => {
         </Typography>
       ) : (
         <>
-          <Box  sx={{
-         width: "100%",
-        //  backgroundImage: "url(/img/drawingLoader.gif)",
-         backgroundRepeat:"no-repeat",
-         backgroundPosition:"center",
-         backgroundSize:"cover"
-         
-        }}>
+          <Box  sx={{ width: "100%" }}>
             <Typography
               variant="h5"
               sx={{
@@ -155,115 +134,22 @@ export const ShowGallary = ({ data }) => {
           open={showImage}
           toggle={setShowImage}
           titleColor={"green"}
-          title={imageLink[0]?.name}
+          title={
+            <Typography 
+         
+         sx={{
+          color:"white" ,
+          fontFamily:"NX",
+          fontSize:".8rem"
+         }}>
+           {imageLink[0]?.name}
+         </Typography>}
           Xfullscreen={false}
         >
-          <ShowSingleImage imageLink={imageLink} setLoadImg={setLoadImg}/>
+          <ShowSingleImage imageLink={imageLink} setLoadImg={setLoadImg} setShowImage={setShowImage} getImages={getImages} cId={cId}/>
         </DiloagShow>
       ) : null}
       {loadImg && <ImageLoader />}
     </>
   );
 };
-
-
-
-const ShowSingleImage=({imageLink,setLoadImg})=>{
- 
-  return (
-    <>
-    <Box sx={{
-          
-          display: "flex",
-          justifyContent:"space-between",
-          alignItems: "center",
-          width: "100%",
-          height:"40px",
-          p:1,
-          borderBottom:"2px solid",
-          borderColor:"rgba(15, 65, 0, 0.5)",
-          mb:2
-       
-        }}>
-          <Typography
-           sx={{
-            fontFamily: "NX",
-            color: "rgba(0,0,0,.6)",
-            fontSize: "1rem",
-          }}
-          
-           >{imageLink[0]?.description}</Typography>
-          <IconButton
-       
-           ><AiTwotoneDelete color={"red"}/></IconButton>
-
-        </Box>
-      <Box
-        sx={{
-          maxWidth: "100%",
-          minWidth: "80px",
-          display: "flex",
-          flexDirection:"column",
-          justifyContent:"center",
-          alignItems: "flex-start",
-          width: "100%",
-          // height:"100vh",
-          // p:10,
-          // backgroundColor:"blue"
-          
-          
-          
-        }}
-      >
-        <img
-          src={CDNURL + "/" + imageLink[0]?.link }
-          style={{
-            maxWidth: "100%",
-            minWidth: "300px",
-           height:"auto",
-            objectFit: "cover",
-            overflow:"hidden",
-            // borderRadius:"8px"
-          
-          }}
-          // onLoad={()=>{()=>{setLoadImg(false)}}}
-        />
-          
-      </Box>
-    </>
-  );}
-
-function ImageInfo({ imageName, imageDescription }) {
-  return (
-    <Box
-      sx={{
-        width: "100%",
-        minHeight: "30px",
-        backgroundColor: "rgba(0,0,0,.2)",
-        borderRadius: "0px 0px 8px 8px",
-        p: 1,
-        position:"relative"
-      }}
-    >
-      <Typography
-        sx={{
-          fontFamily: "NX",
-          color: "rgba(0,0,0,.6)",
-          fontSize: "1rem",
-        }}
-      >
-        {imageName}
-      </Typography>
-      <Typography
-        sx={{
-          fontFamily: "NX",
-          color: "rgba(0,0,0,.5)",
-          fontSize: ".7rem",
-        }}
-      >
-        {imageDescription}
-      </Typography>
-    
-    </Box>
-  );
-}

@@ -30,9 +30,7 @@ export function WakelInfo({ Wid, Wname }) {
         }}
       >
         <ShowData txt={Wid} icon={<FaRegAddressCard color="green" />} />
-        <ShowImg
-          txt={"الهوية"}
-          icon={<BsFillImageFill color="gray" size={"1rem"} />} />
+        
       </Box>
       <ShowData txt={Wname} icon={<BsFillPersonFill color="green" />} />
     </>

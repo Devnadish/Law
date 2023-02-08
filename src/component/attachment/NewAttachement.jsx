@@ -9,7 +9,7 @@ import { LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
 
 
-export const NewAttachement = ({ cId }) => {
+export const NewAttachement = ({ cId ,getImages}) => {
   const [attName, setAttName] = useState();
   const [attDesc, setAttDesc] = useState("");
   const [ImgToUpload, setImgToUpload] = useState("");
@@ -24,9 +24,11 @@ export const NewAttachement = ({ cId }) => {
     let file = e.target.files[0];
     setImgToUpload(file);
     setImgName(file.name)
-    setImgNameToUpload(cId + "/" + uuidv4());
+    setImgNameToUpload(cId + "/" + "CIL_"+uuidv4());
     console.log(ImgToUpload, ImgNameToUpload);
   }
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,14 +40,13 @@ export const NewAttachement = ({ cId }) => {
       toast.warn("لايوجد اسم للمرفق");
       return
     }
-
-
-
-
     setLoading(true)
     const { data: imgX, error: imgXError } = await supabase.storage
       .from("law")
       .upload(ImgNameToUpload, ImgToUpload);
+
+console.log({imgX},{imgXError})
+
     const { data, error } = await supabase
       .from("client_attachment")
       .insert([
@@ -57,6 +58,9 @@ export const NewAttachement = ({ cId }) => {
         },
       ])
       .select();
+
+
+      getImages(cId)
       setLoading(false)
   };
 
