@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, Typography } from '@mui/material';
 import { useTheme } from 'styled-components';
 
-export const InpuText = ({ inputName, inputLabel, onChangeEvent, InputValue, colorFont, fx = false, txWidth = "100%", mxLength }) => {
+export const InpuText = ({ inputName, inputLabel, onChangeEvent, InputValue, colorFont, fx = false, txWidth = "100%", mxLength,Fxdisabled=false }) => {
   const theme = useTheme();
 
   const handleOnChange = (event) => {
@@ -19,6 +19,7 @@ export const InpuText = ({ inputName, inputLabel, onChangeEvent, InputValue, col
         color="warning"
         variant="filled"
         focused={fx}
+        disabled={Fxdisabled}
         value={InputValue}
         onChange={(event) => handleOnChange(event)}
         label={<Typography fontFamily={"NX"} color={"whitesmoke"}>

@@ -1,9 +1,19 @@
 import { Avatar, Box, CardHeader, Chip, IconButton, Typography } from '@mui/material'
 import {AiFillEdit} from "react-icons/ai"
 import {MdDelete} from "react-icons/md"
+import { useNavigate } from 'react-router-dom'
+
 
 
 function ItemCardHeader({Xavatar,cId="00000000000",Cname="خالد علي احمد",theme,counter}) {
+  
+const Navigate=useNavigate()
+  const handleUpdate=()=>{
+
+Navigate("/updClient/"+cId)
+
+  }
+
   return (
     <CardHeader
       avatar={<Avatar src={Xavatar} aria-label="recipe" />}
@@ -79,7 +89,7 @@ function ItemCardHeader({Xavatar,cId="00000000000",Cname="خالد علي احم
                 px: 2,
               }}
             >
-              <IconButton>
+              <IconButton onClick={handleUpdate}>
                 <AiFillEdit color="#8d0376" />
               </IconButton>
               <IconButton>

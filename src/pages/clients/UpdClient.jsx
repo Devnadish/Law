@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Typography } from '@mui/material'
 import RTL from '../../component/rtl/RTL'
@@ -9,10 +9,12 @@ import ErorrBox from "../../component/ErrorBox/ErorrBox"
 import { InpuText } from '../../component/inputText/InpuText'
 import supabase from '../../logic/database/supabase';
 import { toast } from 'react-toastify'
+import { useParams } from 'react-router-dom'
 
 
 
-function NewClient() {
+function UpdClient() {
+  let { ClientId } = useParams();
   const [loading,setLoading]=useState(false)
   const [id,setId]=useState("")
   const [natationalty,setNatationalty]=useState("")
@@ -27,7 +29,6 @@ function NewClient() {
   const [exist,setExist]=useState(false)
   const [currentErrors, setCurrentErrors] = useState([]);
   const [isErrors, setIsErrors] = useState(false);
-  
   const theme=useTheme()
 
   /* ---------------------validation----------------------------------------- */
@@ -45,8 +46,9 @@ const checkDataValidation = async () => {
 /* ---------------------Save To DB   ----------------------------------------- */
 const sendToDb = async () => {
   setLoading(true);
-  const { data, error } = await supabase.from("clients").insert([{id,natationalty,name,mobile,email,wId,wName}]);
-  toast.success("تم فتح الملف بنجاح");
+  // const { data, error } = await supabase.from("clients").insert([{id,natationalty,name,mobile,email,wId,wName}]);
+  const { data, error } = await supabase.from("clients").update([{id,natationalty,name,mobile,email,wId,wName}]).eq("id",ClientId)
+  toast.success("تم تعديل الملف بنجاح");
   // handleClear()
   setLoading(false);
 };
@@ -68,8 +70,9 @@ const sendToDb = async () => {
     event.preventDefault();
     const validate = await checkDataValidation();
     if(currentErrors.length===0){
-      const checkClientId =  await checkId()
-      if(!checkClientId){  sendToDb() }
+      // const checkClientId =  await checkId()
+      // if(checkClientId){  sendToDb() }
+      sendToDb()
     }
   };
 /* ---------------------Clear Fileds   ----------------------------------------- */
@@ -86,6 +89,25 @@ const sendToDb = async () => {
         setIdImage("")
         setWIdImage("")
   }
+
+ const CollectData=async()=>{
+ 
+  const {data,error}=await supabase.from("clients").select().eq("id",ClientId)
+  setId(data[0].id)
+  setNatationalty(data[0].natationalty)
+  setName(data[0].name)
+  setMobile(data[0].mobile)
+  setEmail(data[0].email)
+  setWid(data[0].wId)
+  setWname(data[0].wName)
+
+ }
+
+
+  useEffect(()=>{
+     const g=async()=>{await CollectData()}
+     g()
+  },[])
 
   return (
     <>
@@ -105,7 +127,7 @@ const sendToDb = async () => {
             mb={2}
             textAlign={"center"}
           >
-            فتح ملف عميل
+             تعديل ملف عميل رقم {ClientId}
           </Typography>
           <form
             style={{
@@ -148,6 +170,7 @@ const sendToDb = async () => {
                   mxLength={10}
                   InputValue={id}
                   onChangeEvent={setId}
+                  Fxdisabled={true}
                 />
                  <InpuText
                   inputName={"ClientId"}
@@ -236,10 +259,11 @@ const sendToDb = async () => {
                   }
                   loadingPosition="end"
                   endIcon={<AiOutlineUserAdd color={"white"} />}
+                  color="error"
                   type="submit"
                   // onClick={handleRegestration }
                 >
-                  <Typography fontFamily={"NX"}> تسجيل العميل</Typography>
+                  <Typography fontFamily={"NX"}> تعديل ملف العميل</Typography>
                 </LoadingButton>
                 <Button variant="contained" color='warning' onClick={handleClear}>
                 
@@ -255,6 +279,6 @@ const sendToDb = async () => {
     </>
   );
 }
-export default NewClient
+export default UpdClient
 
 

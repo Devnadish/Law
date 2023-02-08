@@ -50,6 +50,7 @@ export default function ItemCard({
         cId={client.id}
         cName={client.name}
         hasComment={client.has_comment}
+        natationalty={client.natationalty}
         theme={theme}
       />
       <ItemCardAction   Qdya={client.Qdya} jalsat={client.jalsat} hkm={client.hkm}  tnfed={client.tnfed} theme={theme} />
