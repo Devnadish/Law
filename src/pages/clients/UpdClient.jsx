@@ -3,13 +3,14 @@ import { LoadingButton } from '@mui/lab'
 import { Box, Button, Typography } from '@mui/material'
 import RTL from '../../component/rtl/RTL'
 import { useTheme } from 'styled-components'
-import {AiOutlineUserAdd,AiOutlineClear} from "react-icons/ai"
+import {AiOutlineClear} from "react-icons/ai"
 import {checkBeforeSave} from "../../component/validation/validation"
 import ErorrBox from "../../component/ErrorBox/ErorrBox"
 import { InpuText } from '../../component/inputText/InpuText'
 import supabase from '../../logic/database/supabase';
 import { toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
+import {FaUserEdit} from "react-icons/fa"
 
 
 
@@ -258,7 +259,7 @@ const sendToDb = async () => {
                     <Typography color={"yellow"} fontFamily={"NX"}>جاري الحفظ</Typography>
                   }
                   loadingPosition="end"
-                  endIcon={<AiOutlineUserAdd color={"white"} />}
+                  endIcon={<FaUserEdit color={"white"} />}
                   color="error"
                   type="submit"
                   // onClick={handleRegestration }

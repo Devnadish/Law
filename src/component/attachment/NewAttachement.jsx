@@ -28,6 +28,14 @@ export const NewAttachement = ({ cId ,getImages}) => {
     console.log(ImgToUpload, ImgNameToUpload);
   }
 
+  const addAttatchmentCounter=async (cId)=>{
+    const { data } =  await supabase.from('clients').select().eq("id", cId)
+    let counter=data[0]?.has_attatchment+1
+    const { data:cmtUpdated,error } = await supabase.from('clients').update({ has_attatchment : counter }).eq("id", cId).select()
+    console.log(cmtUpdated)
+    
+}
+
 
 
   const handleSubmit = async (e) => {
@@ -61,6 +69,7 @@ console.log({imgX},{imgXError})
 
 
       getImages(cId)
+      addAttatchmentCounter(cId)
       setLoading(false)
   };
 
@@ -90,7 +99,7 @@ console.log({imgX},{imgXError})
         }}
       >
         <InpuText
-          inputName={"ClientId"}
+          inputName={"ClientName"}
           inputLabel={"الاسم"}
           colorFont={"grey"}
           fx={true}

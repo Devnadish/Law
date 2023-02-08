@@ -13,6 +13,11 @@ const Navigate=useNavigate()
 Navigate("/updClient/"+cId)
 
   }
+  const handledelete=()=>{
+
+    Navigate("/delClient/"+cId)
+    
+      }
 
   return (
     <CardHeader
@@ -69,12 +74,7 @@ Navigate("/updClient/"+cId)
               >
                 {Cname}
               </Typography>
-              {/* <Typography
-                textAlign={"right"}
-                sx={{ fontFamily: "NX", lineHeight: 1.5 }}
-              >
-                {create_at}
-              </Typography> */}
+               
               
             </Box>
             <Box
@@ -92,7 +92,7 @@ Navigate("/updClient/"+cId)
               <IconButton onClick={handleUpdate}>
                 <AiFillEdit color="#8d0376" />
               </IconButton>
-              <IconButton>
+              <IconButton onClick={handledelete}>
                 <MdDelete color="red" />
               </IconButton>
             </Box>

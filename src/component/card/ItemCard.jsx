@@ -50,6 +50,8 @@ export default function ItemCard({
         cId={client.id}
         cName={client.name}
         hasComment={client.has_comment}
+        hasattatchment={client.has_attatchment}
+
         natationalty={client.natationalty}
         theme={theme}
       />

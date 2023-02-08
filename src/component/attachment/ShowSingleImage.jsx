@@ -11,7 +11,6 @@ export const ShowSingleImage = ({ imageLink, setShowImage,getImages,cId}) => {
   const [delConfrmation,setDelConfrmation]=useState(false)
   const [open,setOpen]=useState(false)
   const removeFromStorage=async()=>{
-    // const { data,error } = await supabase.storage.from("law").remove([CDNURL + "/" + imageLink[0]?.link]);
     const { data,error } = await supabase.storage.from("law").remove([imageLink[0]?.link]);
     if(error)console.log(error)
   
@@ -22,16 +21,20 @@ export const ShowSingleImage = ({ imageLink, setShowImage,getImages,cId}) => {
  
  }
 
- const decraceCounterDb=()=>{
-
+ const decraceCounterDb=async()=>{
+    const { data } =  await supabase.from('clients').select().eq("id",cId)
+    let counter=data[0]?.has_attatchment-1
+    const { data:cmtUpdated,error } = await supabase.from('clients').update({ has_attatchment : counter }).eq("id",cId).select()
  }
+
  const refreshMainGallery=async ()=>{ await getImages(cId)}
- 
  const deleteAction = async () => {
     // alert("will delete")
       await removeFromStorage()
       await removeFromDb()
+      await decraceCounterDb()
       await refreshMainGallery()
+
  };
 
 

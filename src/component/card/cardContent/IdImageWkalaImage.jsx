@@ -14,7 +14,7 @@ import {MdOutlineCancelPresentation} from "react-icons/md"
 import ClientAttatchment from "../../attachment/ClientAttatchment"
 
 
-export function IdImageWkalaImage({ cId,cName,hasComment,   theme}) {
+export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme}) {
   const [open,setOpen]=useState(false)
   const [gallaryOpen,setGallaryOpen]=useState(false)
 
@@ -88,7 +88,7 @@ export function IdImageWkalaImage({ cId,cName,hasComment,   theme}) {
           <Typography fontFamily={"NX"} lineHeight={"1"} fontSize={".8rem"}>
             المرفقات
           </Typography>
-          {hasComment === 0 ? (
+          {hasattatchment === 0 ? (
             <>
               <MdOutlineCancelPresentation color={theme.yellowColor} />
             </>
@@ -100,7 +100,7 @@ export function IdImageWkalaImage({ cId,cName,hasComment,   theme}) {
             fontSize={".8rem"}
             sx={{ border: "1px solid rgba(255,255,255,.3)", fontSize:".6rem", px: .5,py:.5 ,borderRadius:1,color:"rgba(255,255,255,.7)" }}
           >
-            {hasComment}
+            {hasattatchment}
           </Typography>
               <BsCardImage color={theme.barndbaColor}  size={"1rem"}/>
             </>

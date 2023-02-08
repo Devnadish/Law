@@ -15,6 +15,7 @@ cId,cName,
   natationalty="سعودي",
   expanded,
   hasComment,
+  hasattatchment,
   handleExpandClick,
   theme 
 }) {
@@ -29,7 +30,7 @@ cId,cName,
       }}
     >
      <MobileAndEmailAndNationalty   Mobile={Mobile} email={email} create_at={create_at} natationalty={natationalty}  />
-     <IdImageWkalaImage    cId={cId} cName={cName} hasComment={hasComment}    theme={theme}/>
+     <IdImageWkalaImage    cId={cId} cName={cName} hasComment={hasComment} hasattatchment={hasattatchment}    theme={theme}/>
      <WakelInfo   Wid={Wid} Wname={Wname}  />
     </CardContent>
   );
