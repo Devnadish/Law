@@ -7,7 +7,7 @@ import supabase from '../../logic/database/supabase';
 import { toast } from 'react-toastify';
 import RTL from "../rtl/RTL"
 
-const WriteComment = ({commentTilte,cId,fechdata}) => {
+const WriteComment = ({commentTilte,cId,fechdata,noteRef}) => {
   const [comment,setComment]=useState("")
     const [loading,setLoading]=useState(false)
 
@@ -16,7 +16,9 @@ const WriteComment = ({commentTilte,cId,fechdata}) => {
       let counter=data[0]?.has_comment+1
       const { data:cmtUpdated,error } = await supabase.from('clients').update({ has_comment : counter }).eq("id", cId).select()
       console.log(cmtUpdated)
-      
+      /* change the connter Pure Js By Element Id This For Note Conter */
+      const Notecounter = document.getElementById("note"+cId);
+      Notecounter.innerHTML=counter
   }
   
 

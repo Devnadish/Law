@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useRef} from "react";
 import { Box, Button, Typography } from "@mui/material";
 
 import  DiloagShow from "../../dailog/DiloagShow"
@@ -17,6 +17,7 @@ import ClientAttatchment from "../../attachment/ClientAttatchment"
 export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme}) {
   const [open,setOpen]=useState(false)
   const [gallaryOpen,setGallaryOpen]=useState(false)
+  const noteRef=useRef()
 
   return (
     <>
@@ -34,7 +35,6 @@ export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme
         <Button
           variant="contained"
           onClick={() => setOpen(true)}
-          // endIcon=
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -45,22 +45,32 @@ export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme
           }}
           fullWidth
         >
-          <Typography fontFamily={"NX"} lineHeight={"1"} fontSize={".8rem"}>
+          <Typography fontFamily={"NX"} lineHeight={"1"} fontSize={".8rem"} ref={noteRef}>
             ملاحظات
           </Typography>
         
 
           {hasComment === 0 ? (
             <>
+             <Typography
+              id={"note"+cId}
+            fontFamily={"NX"}
+            lineHeight={"1"}
+            fontSize={".8rem"}
+            sx={{ border: "1px solid rgba(255,255,255,.3)", fontSize:".6rem", px: .5,py:.5 ,borderRadius:1,color:"rgba(255,255,255,.9)" }}
+          >
+            0
+          </Typography>
               <FaCommentSlash color={theme.yellowColor} />
             </>
           ) : (
             <>
               <Typography
+              id={"note"+cId}
             fontFamily={"NX"}
             lineHeight={"1"}
             fontSize={".8rem"}
-            sx={{ border: "1px solid rgba(255,255,255,.3)", fontSize:".6rem", px: .5,py:.5 ,borderRadius:1,color:"rgba(255,255,255,.5)" }}
+            sx={{ border: "1px solid rgba(255,255,255,.3)", fontSize:".6rem", px: .5,py:.5 ,borderRadius:1,color:"rgba(255,255,255,.9)" }}
           >
             {hasComment}
           </Typography>
@@ -90,11 +100,21 @@ export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme
           </Typography>
           {hasattatchment === 0 ? (
             <>
+             <Typography
+              id={"atta"+cId}
+            fontFamily={"NX"}
+            lineHeight={"1"}
+            fontSize={".8rem"}
+            sx={{ border: "1px solid rgba(255,255,255,.3)", fontSize:".6rem", px: .5,py:.5 ,borderRadius:1,color:"rgba(255,255,255,.7)" }}
+          >
+            0
+          </Typography>
               <MdOutlineCancelPresentation color={theme.yellowColor} />
             </>
           ) : (
             <>
               <Typography
+              id={"atta"+cId}
             fontFamily={"NX"}
             lineHeight={"1"}
             fontSize={".8rem"}
@@ -104,19 +124,9 @@ export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme
           </Typography>
               <BsCardImage color={theme.barndbaColor}  size={"1rem"}/>
             </>
-          
-              
-            
           )}
         </Button>
-        {/* <ShowImg
-            txt={"الهوية"}
-            icon={<BsFillImageFill color="gray" size={"1rem"} />}
-          />
-          <ShowImg
-            txt={"الوكالة"}
-            icon={<BsFillImageFill color="gray" size={"1rem"} />}
-          /> */}
+        
       </Box>
 
       {open ? (
@@ -135,7 +145,8 @@ export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme
             </Box>
           }
         >
-          <Note cId={cId} />
+            
+          <Note cId={cId} noteRef={noteRef}/>
         </DiloagShow>
       ) : null}
       {/* --------------------------- */}
@@ -163,7 +174,7 @@ export function IdImageWkalaImage({ cId,cName,hasComment, hasattatchment,  theme
   );
 }
 
-const Note = ({cId}) => {
+const Note = ({cId,noteRef}) => {
   const [comments,setComments]=useState([])
   const [comment,setComment]=useState("")
   const [loading,setLoading]=useState(false)
@@ -176,7 +187,7 @@ const Note = ({cId}) => {
   return (
     <>
       <Box>
-        <WriteComment cId={cId} commentTilte={"اضف ملاحظاتك"} fechdata={fechdata}/>
+        <WriteComment cId={cId} commentTilte={"اضف ملاحظاتك"} fechdata={fechdata} noteRef={noteRef}/>
         <CommentPage setLoading={setLoading} loading={loading} cId={cId} comments={comments} setComments={setComments} comment={comment} setComment={setComment} fechdata={fechdata}/>
       </Box>
     </>
