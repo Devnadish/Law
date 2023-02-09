@@ -33,7 +33,7 @@ export const NewAttachement = ({ cId ,getImages}) => {
     let counter=data[0]?.has_attatchment+1
     const { data:cmtUpdated,error } = await supabase.from('clients').update({ has_attatchment : counter }).eq("id", cId).select()
     console.log(cmtUpdated)
-      /* change the connter Pure Js By Element Id This For Note Conter */
+      /* change the connter Pure Js By Element Id This For attatchment Conter */
       const AttaCounter = document.getElementById("atta"+cId);
       AttaCounter.innerHTML=counter
     
