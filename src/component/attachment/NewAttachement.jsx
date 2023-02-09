@@ -1,62 +1,61 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import supabase from "../../logic/database/supabase";
 import { InpuText } from "../../component/inputText/InpuText";
-
-import {ImUpload} from "react-icons/im"
+import { ImUpload } from "react-icons/im";
 import { LoadingButton } from "@mui/lab";
 import { toast } from "react-toastify";
 
-
-export const NewAttachement = ({ cId ,getImages}) => {
+export const NewAttachement = ({ cId, getImages }) => {
   const [attName, setAttName] = useState();
   const [attDesc, setAttDesc] = useState("");
   const [ImgToUpload, setImgToUpload] = useState("");
   const [ImgNameToUpload, setImgNameToUpload] = useState("");
   const [imgName, setImgName] = useState();
   const [loading, setLoading] = useState(false);
-  
-  const imageInput=useRef()
+
+  const imageInput = useRef();
 
   async function uploadImage(e) {
     e.preventDefault();
     let file = e.target.files[0];
     setImgToUpload(file);
-    setImgName(file.name)
-    setImgNameToUpload(cId + "/" + "CIL_"+uuidv4());
+    setImgName(file.name);
+    setImgNameToUpload(cId + "/" + "CIL_" + uuidv4());
     console.log(ImgToUpload, ImgNameToUpload);
   }
 
-  const addAttatchmentCounter=async (cId)=>{
-    const { data } =  await supabase.from('clients').select().eq("id", cId)
-    let counter=data[0]?.has_attatchment+1
-    const { data:cmtUpdated,error } = await supabase.from('clients').update({ has_attatchment : counter }).eq("id", cId).select()
-    console.log(cmtUpdated)
-      /* change the connter Pure Js By Element Id This For attatchment Conter */
-      const AttaCounter = document.getElementById("atta"+cId);
-      AttaCounter.innerHTML=counter
-    
-}
-
-
+  const addAttatchmentCounter = async (cId) => {
+    const { data } = await supabase.from("clients").select().eq("id", cId);
+    let counter = data[0]?.has_attatchment + 1;
+    const { data: cmtUpdated, error } = await supabase
+      .from("clients")
+      .update({ has_attatchment: counter })
+      .eq("id", cId)
+      .select();
+    console.log(cmtUpdated);
+    /* change the connter Pure Js By Element Id This For attatchment Conter */
+    const AttaCounter = document.getElementById("atta" + cId);
+    AttaCounter.innerHTML = counter;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!imgName) {
       toast.warn("لايوجد مرفق");
-      return
+      return;
     }
     if (!attName) {
       toast.warn("لايوجد اسم للمرفق");
-      return
+      return;
     }
-    setLoading(true)
+    setLoading(true);
     const { data: imgX, error: imgXError } = await supabase.storage
       .from("law")
       .upload(ImgNameToUpload, ImgToUpload);
 
-console.log({imgX},{imgXError})
+    console.log({ imgX }, { imgXError });
 
     const { data, error } = await supabase
       .from("client_attachment")
@@ -69,11 +68,9 @@ console.log({imgX},{imgXError})
         },
       ])
       .select();
-
-
-      getImages(cId)
-      addAttatchmentCounter(cId)
-      setLoading(false)
+    getImages(cId);
+    addAttatchmentCounter(cId);
+    setLoading(false);
   };
 
   return (
@@ -81,18 +78,6 @@ console.log({imgX},{imgXError})
       <Typography variant="h4" fontFamily={"NX"}>
         المرفقات
       </Typography>
-      {/* <form
-              onClick={handleSubmit}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "1rem",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-                margin: "auto",
-              }}
-            > */}
       <Box
         sx={{
           display: "flex",
@@ -165,17 +150,13 @@ console.log({imgX},{imgXError})
             >
               <Typography fontFamily={"NX"}>صورة المرفق</Typography>
               <Typography
-                // variant="p"
-               
                 sx={{
-                  fontFamily:"NX",
-                  fontSize:".7rem",
-                  alignSelf:"flex-end",
-                  color:"rgba(0,0,0,0.5)",
-                  mr:1
-
+                  fontFamily: "NX",
+                  fontSize: ".7rem",
+                  alignSelf: "flex-end",
+                  color: "rgba(0,0,0,0.5)",
+                  mr: 1,
                 }}
-                
               >
                 {imgName}
               </Typography>
@@ -191,30 +172,21 @@ console.log({imgX},{imgXError})
           hidden
         />
 
-<LoadingButton
-                  loading={loading}
-                  variant="contained"
-                  fullWidth
-                  loadingIndicator={
-                    <Typography color={"yellow"} fontFamily={"NX"}>جاري الحفظ</Typography>
-                  }
-                  loadingPosition="end"
-                  endIcon={<ImUpload color={"white"} />}
-                  // type="submit"
-                  onClick={handleSubmit }
-
-                >
-                  <Typography fontFamily={"NX"}> اضافة المرفق </Typography>
-                </LoadingButton>
-
-
-
-
-
-
-        {/* <Button variant="contained" onClick={handleSubmit}>
-          <Typography fontFamily={"NX"}>اضافة المرفق</Typography>
-        </Button> */}
+        <LoadingButton
+          loading={loading}
+          variant="contained"
+          fullWidth
+          loadingIndicator={
+            <Typography color={"yellow"} fontFamily={"NX"}>
+              جاري الحفظ
+            </Typography>
+          }
+          loadingPosition="end"
+          endIcon={<ImUpload color={"white"} />}
+          onClick={handleSubmit}
+        >
+          <Typography fontFamily={"NX"}> اضافة المرفق </Typography>
+        </LoadingButton>
       </Box>
       {/* </form> */}
     </>
